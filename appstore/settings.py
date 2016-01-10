@@ -14,7 +14,10 @@ BOT_NAME = 'appstore'
 SPIDER_MODULES = ['appstore.spiders']
 NEWSPIDER_MODULE = 'appstore.spiders'
 
-
+ITEM_PIPELINES = {
+    'appstore.pipelines.AppstorePipeline': 300,
+}
+DOWNLOAD_DELAY = 5
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'appstore (+http://www.yourdomain.com)'
 
