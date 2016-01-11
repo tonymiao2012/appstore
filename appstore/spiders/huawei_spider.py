@@ -30,14 +30,15 @@ class HuaweiSpider(scrapy.Spider):
 
         item['title'] = page.xpath('.//ul[@class="app-info-ul nofloat"]/li/p/span[@class="title"]/text()').extract_first().encode('utf-8')
         item['url'] = response.url
+        #print type(item['url'])
         item['appid'] = re.match(r'http://.*/(.*)', item['url']).group(1)
         item['intro'] = page.xpath('//meta[@name="description"]/@content').extract_first().encode('utf-8')
         divs = page.xpath('//div[@class="open-info"]')
         recomm = ""
         for div in divs:
             url = div.xpath('./p[class="name"]/a/@href').extract_first()
-            print type(url)
-            recommended_appid = re.match(r'http://.*/(.*)', url).group(1)
+            #print type(url)
+            recommended_appid = re.match(r'http://.*/(.*)', str(url))
             name = div.xpath('./p[@class="name"]/a/text()').extract_first().encode('utf-8')
             recomm += "{0}:{1},".format(recommended_appid, name)
         item['recommended'] = recomm
